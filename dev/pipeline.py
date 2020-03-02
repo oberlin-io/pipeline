@@ -116,8 +116,11 @@ class HTML(Provenance):
         self.html.replace('##title##', title)
         
         self.html += payload
+
+        self.html += '</body></html>'
         
-        with open(full_path, 'w') as f: f.write(self.html)
+        with open(full_path, 'w') as f:
+            f.write(self.html)
 
 
     def set_navigator(self):
@@ -128,7 +131,7 @@ class HTML(Provenance):
         
         for uri in self.prov:
             
-            with open('navi_entry_template.html', 'r') as f:
+            with open('navi_entry.html', 'r') as f:
                 entry = f.read()
             
             uri_prov = get_uri_prov(uri)
@@ -155,7 +158,7 @@ class HTML(Provenance):
                     
                 ds_html += '</ul>'
             
-                entry.replace('##data_source##', ds_html)
+                  entry.replace('##data_source##', ds_html)
                 
             # Clear out any unused variables
             entry_ = str()
@@ -172,7 +175,7 @@ class HTML(Provenance):
             
         
 class Transform(Provenance):
-    def __init__(self):
+    def __init__(self):|
         super().__init__()
         
     def set_df(self, uri):
@@ -201,9 +204,11 @@ class Transform(Provenance):
             
                 uri_prov = self.get_uri_prov(self, ds_uri)
             
-                df = self.read_data(uri_prov)
+                ds_df = self.read_data(uri_prov)
                 
                 self.log(uri, 'df set as data_source')
+
+                data_sources[ds_uri] = ds_df
                 
             self.data_source = data_sources
 
@@ -213,9 +218,9 @@ class Transform(Provenance):
         path = self.topic_path + 'rename.yaml'
         
         with open(path, 'r') as f:
-            r = yaml.safe_load( f.read() )
+            y = yaml.safe_load( f.read() )
             
-        self.df.rename(r, inplace=True)
+        self.df.rename(y, inplace=True)
         
         
     def mask(self, uri, col='overwrite'):
@@ -228,7 +233,7 @@ class Transform(Provenance):
         with open(path, 'r') as f:
             y = yaml.safe_load( f.read() )
         
-        for c, mask in y.item:
+        for c, mask in y.items():
             
             if col == 'overwrite':
                 
