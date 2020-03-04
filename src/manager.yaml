@@ -1,0 +1,21 @@
+x1:
+  topic:
+    - value:      Sample Topic
+  description:
+    - value:      Sample description here.
+  file_type:
+    - value:      .xlsx
+  type:
+    - value:      source
+  group:
+    - value:      PPTS
+  source:
+    - value:      K:/Standards/example/file.ext
+      type:       network share
+  active:         True
+  pull_start:
+    - value:      2020-01-02 08:00 # Or 'now'
+  pull_sched:
+    - value:      weekly # 'every minute', 'hourly', 'daily', 'weekly', 'monthly'
+  last_pull:
+    - value:      2020-02-02
