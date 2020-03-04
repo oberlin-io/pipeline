@@ -14,6 +14,12 @@ class Manager(object):
         with open('manager.yaml', 'r') as f:
             self.mgr = yaml.safe_load(f.read())
 
+    def fs_sweep(self):
+        '''fs/ directory and manager.yaml congruency.'''
+        dirs = os.listdir('../fs/')
+        pass
+
+
 #class menu
 
 class Topic(Manager):
@@ -23,10 +29,10 @@ class Topic(Manager):
 
     def set_id(self):
         # Set hexidecimal _id for topic
-        x = hex(1)[1:]
+        x = hex(1000)[1:]
 
         while x in self.mgr.keys():
-            x = hex( randint(1, 999) )[1:]
+            x = hex( randint(1001, 9999) )[1:]
 
         self._id = x
 
